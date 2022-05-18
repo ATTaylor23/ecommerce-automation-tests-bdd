@@ -131,7 +131,6 @@ public class SerializationDeserialization {
 
         System.out.println(responseAsVideoGameObject.getName());
 
-        //give me something to push
 
     }
 
