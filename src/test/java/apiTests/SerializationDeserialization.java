@@ -115,6 +115,8 @@ public class SerializationDeserialization {
                 "FPS",
                 "PG13");
 
+
+
         VideoGame responseAsVideoGameObject = given().
                 header("Accept", "application/json").       // I can accept/understand only json
                         header("Content-Type", "application/json").
