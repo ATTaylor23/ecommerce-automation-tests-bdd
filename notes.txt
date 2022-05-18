@@ -1,0 +1,126 @@
+Build a Cucumber BDD Framework:
+    1. Add dependencies (Selenium, WebDriverManager, Cucumber-java, Cucumber-JUnit, Cucumber-Core)
+    2. Add .gitignore
+    3. Create packages, add utilities, properties file,
+    4.
+
+
+Cucumber framework components:
+
+    -feature files (within resources)
+    -Step Definition classes (package)
+    -Runner class (package)
+    -The scenario steps in feature files are connected to the corresponding
+    step definition methods in step def classes through Runner class's @CucumberOptions options:
+        features = "src/test/resources"
+        glue = "stepDefinitions"
+    -The scenario step is matched to the corresponding step definition method through the text of the
+     scenario step and step definition
+        FOR EXAMPLE:
+            step -> Given I am on the homepage
+            step def method annotation -> @Given("I am on the homepage")
+
+Basic workflow of a Cucumber framework:
+
+    -create a feature file
+    -add scenario/s to a feature file
+    -generate snippet/s for unimplemented steps
+    -implement each step def method logic
+
+
+
+Cucumber Hooks:
+
+    -methods with @Before and @After annotations that are added under step defs folder
+    are used to setup and teardown
+
+
+How to run scenarios with specific tags through CMD?
+
+    mvn verify -Dcucumber.filter.tags=@product
+    mvn verify -Dcucumber.filter.tags="@product and @peram"
+    mvn verify -Dcucumber.filter.tags="@product or not @quantity"
+
+    The CMD tags will override the tags in Runner class.
+
+
+Cucumber DataTable workflow:
+    - add a Datatable to a Scenario step
+    - generate a snippet and change the DataTable parameter to one of the following
+    for automatic conversion:
+    List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or Map<K, List<V>>
+
+
+Cucumber Scenario Outline: native cucumber mechanism to implement Data-Driven Testing
+    Difference between Examples Table and DataTable:
+        -Examples Table applies to the entire scenario outline, meaning for each row of
+        the table, the entire scenario is going to run once
+        -DataTable belongs to only a single scenario step, and it is a convenient way to
+        pass complex table style data into a single step.
+
+
+
+How to run tests in parallel in Cucumber framework?
+
+    We can enable parallel test in Cucumber natively with JUnit.
+    But we need to remember that with this option you can run only FEATURES in parallel.
+    If there is a need for running SCENARIOS in parallel, you can incorporate TestNG.
+
+
+    Steps to implement running parallel Features in Cucumber with JUnit:
+        1. Give the scope of the feature files that you want to run in parallel in your runner class
+            features = "src/test/resource/parallel"
+        2. Add these 2 option under the <configuration> tag of Maven Surefire plugin:
+            <parallel>methods</parallel>
+            <useUnlimitedThreads>true</useUnlimitedThreads>
+        3. Run the tests through command line, if you run it through IDE it will not run in parallel
+
+
+    What cucumber exceptions do you know?
+        DuplicateStepDefinitionException -> when a scenario step matches more than one, step definition method
+        UndefinedStepDefinitionException ->
+        PendingStepDefinitionException ->
+        AmbiguousStepDefinitionException -> when a scenario step matches more than one, step definition method in an
+            ambiguous way. i.e., "I should see the value Blouse" vs. " I should see the value {word}"
+
+
+    Relational Database Management Systems (RDMS) (SQL) - Oracle, MySQL, PostgreSQL, SQL Server
+    NOn-Relational Database Management Systems - NoSQL - MongoDB, Cassandra DB
+
+
+
+
+    Common database testing scenarios:
+        Verify that data inserted from UI is reflected properly in the appropriate table and vice versa.
+        Check for data integrity; data should be stored in single or multiple tables based on design.
+        Verify Table Schema, Column names as per Design Document.
+        Verify Unicode Support (e.g., store Chinese/Japanese Characters).
+        Check if input data is not truncated while saving; field length shown to the user on a page and in database schema should be the same.
+        Check numeric fields with minimum, maximum, and float values.
+        Check numeric fields with negative values.
+        Check if database fields are designed with the correct data type and data length.
+        Check if all table constraints like a Primary key, Foreign key, etc. are implemented correctly.
+        Test stored procedures and triggers with sample input data.
+        Test if input field leading and trailing spaces are truncated before committing data to the database.
+        Check values for columns which are not accepting null values.
+        Null values should not be allowed for the Primary key column.
+        Checking for duplicates.
+
+
+
+    How do you test the DB?
+
+
+    Can you explain your overall DB testing strategy?
+
+    My database testing strategy consists of testing multiple aspects of the DB:
+            -Data Flow/Integrity
+            -Data Mapping
+            -Business rules
+            -Unit testing (verify column names, data types, range)
+            -Performance/Security
+
+    I start with basic testing of the data flow from UI to DB and vice versa. I also verify the correct data mapping of the information for the
+        corresponding fields on the UI and columns in the DB. I also verify various business rules and logic related to the DB.
+
+
